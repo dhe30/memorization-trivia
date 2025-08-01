@@ -2,6 +2,7 @@ import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
 import { useContext } from 'react'
 import { TriviaContext } from '@/context/TriviaContext'
 import Block from '@/components/Block'
+import TopHat from '@/components/TopHat'
 // import '../styles.css'
 
 export const Route = createFileRoute('/game/$id')({
@@ -14,7 +15,7 @@ function Game() {
   return (
     <>
     <Outlet></Outlet>
-      <div className="questions test self-center">
+      <div className="questions self-center">
         {trivia.trivia.map((elem, index) => {
           return (
             <Link
@@ -27,7 +28,9 @@ function Game() {
           )
         })}
       </div>
-      <div className="sidebar">sdede</div>
+      <div className="sidebar self-center">
+        <TopHat></TopHat>
+      </div>
     </>
   )
 }

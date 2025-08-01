@@ -8,7 +8,7 @@ export default function Block({index} : IndexType) {
     return (
 <>
 
-    <div className="glassContainer text-2xl flex flex-row items-center justify-center text-white callunasans-regualar ">
+    <div className="glassContainer absolute top-0 text-2xl flex flex-row items-center justify-center text-white callunasans-regualar ">
         <div className="absolute w-full h-full selector"></div>
 
                 <span className="relative" style={{}}>Question {index}</span>

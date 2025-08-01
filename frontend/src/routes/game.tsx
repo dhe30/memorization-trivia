@@ -6,7 +6,7 @@ export const Route = createFileRoute('/game')({
 
 function RouteComponent() {
   return (
-    <div className='my-layout test justify-center relative'>
+    <div className='my-layout test justify-center relative px-5'>
       <Outlet></Outlet>
     </div>
   )
