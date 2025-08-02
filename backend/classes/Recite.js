@@ -11,7 +11,7 @@ export default class Recite extends Prompt{
     }
 
     generateAnswer(start, length) {
-        return joinInsert(this.termsStripped, [[start, start + length]], "<highlight>", " ")
+        return joinInsert(this.terms, [[start, start + length]], {text: "<highlight>"}, " ")
     }
 
     ask() {
@@ -21,7 +21,7 @@ export default class Recite extends Prompt{
         // console.log(min, Math.floor(this.terms.length / 2))
         const rand = pickRandom(min, max)
         this.length = rand
-        console.log(min, max, "rand: " + rand, this.start, this.start + rand)
+        // console.log(min, max, "rand: " + rand, this.start, this.start + rand)
         this.answer = this.generateAnswer(this.start, rand)
         return {
             question: `Recite the words in the range [${this.start + 1}-${rand}] inclusive of the bible verse.`,

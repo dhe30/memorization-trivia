@@ -4,8 +4,8 @@ export default class QuantifyLetters extends Quantify {
     freq = new Map()
 
     count() {
-        for (const term of this.termsStripped) {
-            for (const char of term) {
+        for (const term of this.terms) {
+            for (const char of term.text) {
                 if (/[a-zA-Z]/.test(char)) {
                     const letter = char.toLowerCase()
                     this.freq[letter] = (this.freq[letter] || 0) + 1
@@ -16,7 +16,7 @@ export default class QuantifyLetters extends Quantify {
     }
 
     ask() {
-        console.log(this.freq.size)
+        // console.log(this.freq.size)
         if (this.freq.size === 0) {
             this.count()
             this._entries = Object.entries(this.freq).sort((a, b) => b[1] - a[1])

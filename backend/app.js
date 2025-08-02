@@ -4,6 +4,7 @@ import { randomUUID } from 'crypto';
 import 'dotenv/config';
 import QuestionFactory from "./classes/QuestionFactory.js";
 import { BibleGatewayAPI } from "./classes/BibleGatewayAPI.js";
+import { preprocessVerse } from "./classes/utilities.js";
 
 
 const PORT = process.env.PORT || 3001;
@@ -24,8 +25,9 @@ app.get('/basic', async (req, res) => {
     console.log("idheudueu")
     const id = randomUUID();
     let { verse, content } = await bgw.search("John 3:16-17");
-    console.log(verse, content)
-    const questions = trivia.createBasic(0, content[0])
+    const verseBundle = preprocessVerse({ verse, content })
+    console.log(verseBundle)
+    const questions = trivia.createBasic(0, verseBundle)
     data.set(id, questions)
     res.status(201).send({game: id, questions});
 });

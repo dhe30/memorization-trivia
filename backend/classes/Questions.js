@@ -4,7 +4,7 @@ export class Questions {
     questions = []
     loaders = []
     terms = []
-    constructor(verse = {content: [{numverse: "16", content: "gas"}], source: "Bible 1:1"}, ...loaders) {
+    constructor(verse = {content: [{numverse: "16", content: "gas"}], verse: "Bible 1:1"}, ...loaders) {
         //verse param is now an array, 
         this.loaders = loaders
         if (verse.content?.length != 0) {
@@ -14,7 +14,7 @@ export class Questions {
 
     loadVerse(verseContent) {
         for (const ver of verseContent) {
-            const doc = nlp(ver);
+            const doc = nlp(ver.content);
             for (const d of doc.terms().data()) {
                 this.terms.push({...d, numverse: ver.numverse})
             }
@@ -32,12 +32,12 @@ export class Questions {
             for (const loader of this.loaders) {
                 for (let i = 0; i < loader.amount; i++) {
                     const res = loader.ask()
-                    console.log("AAAAAAAAAAA", res)
+                    // console.log("AAAAAAAAAAA", res)
                     if (res.question && res.answer) {
                         this.amount--
                         this.questions.push(res)
                     } else {
-                        console.log("hit")
+                        // console.log("hit")
                         i--
                     }
                 }
