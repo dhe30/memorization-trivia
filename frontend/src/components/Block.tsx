@@ -1,17 +1,20 @@
 import { Link } from "@tanstack/react-router";
+import Warning from "../assets/warning-svgrepo-com.svg"
 // import type Question from "@/context/TriviaType";
 
 interface IndexType {
     index: number,
+    warning: boolean
 }
-export default function Block({index} : IndexType) {
+export default function Block({index, warning=false} : IndexType) {
     return (
 <>
 
-    <div className="glassContainer absolute top-0 text-2xl flex flex-row items-center justify-center text-white callunasans-regualar ">
+    <div className="glassContainer text-2xl flex flex-row items-center justify-center text-white callunasans-regualar ">
         <div className="absolute w-full h-full selector"></div>
 
                 <span className="relative" style={{}}>Question {index}</span>
+            {warning && <img className="absolute right-5" height={25} width={25} src={Warning}></img>}
         </div>
                     {/* <svg style={{display:"none"}}>
         <filter id="displacementFilter">

@@ -33,7 +33,7 @@ export class Questions {
                 for (let i = 0; i < loader.amount; i++) {
                     const res = loader.ask()
                     // console.log("AAAAAAAAAAA", res)
-                    if (res.question && res.answer) {
+                    if (res.question) {
                         this.amount--
                         this.questions.push(res)
                     } else {

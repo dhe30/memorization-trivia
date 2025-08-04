@@ -9,8 +9,13 @@ import Recite from "./Recite.js";
 import ReciteFirstHalf from "./ReciteFirstHalf.js";
 import ReciteLastHalf from "./ReciteLastHalf.js";
 import 'dotenv/config';
+import { Difference } from "./Difference.js";
+import nlp from "compromise";
 
-// const verse = "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+
+const verse = "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+const changedVerse = "Nay God soo loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+const doc = nlp(verse).terms().data();
 // const reciteLoader = new Loader(1, new Recite(0, 8, 100))
 // const quanitifyLoader = new Loader(1, new QuantifyWords())
 // const mother = new Questions(verse, quanitifyLoader)
@@ -18,15 +23,6 @@ import 'dotenv/config';
 // const factory = new QuestionFactory()
 // console.log(factory.createBasic(0, verse))
 
-console.log(process.env.BG_USERNAME, process.env.BG_PASSWORD)
-const resp = await axios.get(
-  'https://api.biblegateway.com/2/request_access_token',
-  {
-    params: {
-      username: process.env.BG_USERNAME,
-      password: process.env.BG_PASSWORD
-    }
-  }
-);
-
-console.log(resp.data)
+const differ = new Difference()
+differ.loadTerms(doc)
+differ.diff(changedVerse)

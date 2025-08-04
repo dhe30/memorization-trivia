@@ -1,3 +1,4 @@
+import { Difference } from "./Difference.js";
 import { Loader } from "./Loader.js";
 import Quantify from "./Quantify.js";
 import QuantifyLetters from "./QuantifyLetters.js";
@@ -10,9 +11,10 @@ import ReciteLastHalf from "./ReciteLastHalf.js";
 
 export default class QuestionFactory {
     createBasic(difficulty, verse) {
-        const reciteLoader = new Loader(5, new ReciteFull(), new ReciteFirstHalf(), new ReciteLastHalf)
+        const reciteLoader = new Loader(4, new ReciteFull(), new ReciteFirstHalf(), new ReciteLastHalf)
         const quantifyLoader = new Loader(3, new Quantify(), new QuantifyLetters(), new QuantifyWords())
-        const mother = new Questions(verse, quantifyLoader, reciteLoader)
+        const differenceLoader = new Loader(1, new Difference())
+        const mother = new Questions(verse, quantifyLoader, reciteLoader, differenceLoader)
         return mother.generate()
     }
 }

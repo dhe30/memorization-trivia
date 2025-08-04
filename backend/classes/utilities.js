@@ -3,14 +3,15 @@ export default function pickRandom(from, to) {
     return from + (Math.floor(Math.random() * (to - from + 1))) 
 }
 
-export function joinInsert(terms, ranges, inserter, seperator) {
+export function joinInsert(terms, ranges, inserter, seperator, options = {verseInclusion: true}) {
     //precondition: ranges is disjoint and sorted
     const copy = [...terms]
     for (const [before, after] of ranges.slice().reverse()) {
         copy.splice(after, 0, inserter)
         copy.splice(before, 0, inserter)
     }
-    const res = insertNumverse(copy)
+    let res = copy
+    if (options.verseInclusion) res = insertNumverse(copy)
     return res.join(seperator)
 }
 
@@ -26,9 +27,9 @@ export function insertNumverse(terms) {
             res.push("<sup>")
             curr = term.numverse
         }
-        res.push(term.text)
+        res.push(term.text ?? term)
     }
-    console.log(res)
+    // console.log(res)
     return res
 }
 

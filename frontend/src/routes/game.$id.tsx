@@ -23,7 +23,7 @@ function Game() {
               params={{id,index: String(index)}}
             //   search={{type: 'question'}}
             >
-              <Block index={index}></Block>
+              <Block index={index} warning={!!elem.warning}></Block>
             </Link>
           )
         })}

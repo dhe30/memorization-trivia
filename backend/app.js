@@ -29,10 +29,11 @@ app.get('/basic', async (req, res) => {
     console.log(verseBundle)
     const questions = trivia.createBasic(0, verseBundle)
     data.set(id, questions)
-    res.status(201).send({game: id, questions});
+    res.status(201).send({game: id, questions: questions.map((question) => {return {question: question.question, answer: question.answer, warning: question.warning}})});
 });
 
 app.get('/game/:id', (req, res) => {
+  console.log("get game!")
     const { id } = req.params;
     const result = data.get(id)
     if (result) {
@@ -40,6 +41,29 @@ app.get('/game/:id', (req, res) => {
     } else {
         res.status(404).send("This game does not exist")
     }
+});
+
+app.use('/game/:id', (req, res, next) => {
+  console.log("use game!")
+    const { id } = req.params;
+    const result = data.has(id)
+    if (result) {
+      next()
+    } else {
+        res.status(404).send("This game does not exist")
+    }
+});
+
+app.post('/game/:id/editdifference/:index', (req, res) => {
+  const newQuestion = req.body.question
+  const { id, index } = req.params;
+  const bundle = data.get(id)[index]
+  const origin = bundle.origin
+  const answer = origin.diff(newQuestion)
+  bundle.question = "Spot the difference:\n" + newQuestion
+  bundle.answer = answer 
+  bundle.warning = ""
+  res.status(201).send({question: bundle.question, answer: bundle.answer, warning: bundle.warning});
 });
 
 app.listen(PORT, () => {

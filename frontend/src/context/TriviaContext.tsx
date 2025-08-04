@@ -10,6 +10,7 @@ interface TriviaContextType {
     getGame: (a: string) => Promise<string | undefined>,
     game: string,
     completed: (a: number) => void
+    setDifference: (a: number, b: string) => Promise<boolean>
 }
 
 const defaultTrivia: TriviaContextType = {
@@ -17,7 +18,9 @@ const defaultTrivia: TriviaContextType = {
     generateGame: () => new Promise((resolve, reject) => resolve("")),
     getGame: () => new Promise((resolve, reject) => resolve("")),
     game: "",
-    completed: () => {}
+    completed: () => {},
+    setDifference: () => new Promise((resolve, reject) => resolve(false)),
+
 }
 export const TriviaContext = createContext<TriviaContextType>(defaultTrivia)
 export function TriviaProvider({children}: PropsWithChildren) {
@@ -72,6 +75,32 @@ export function TriviaProvider({children}: PropsWithChildren) {
         })
     }
 
+    async function setDifference(index: number, question: string) {
+        try {
+            const res = await triviaApi.post("/game/" + game + "/editdifference" + index, {question: question})
+            setTrivia((prev) => {
+                const updated = [...prev]
+                updated[index] = res.data
+                return updated
+            })
+            return true
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                if (err.response) {
+                console.error(
+                    `Request failed with status ${err.response.status}:`,
+                    err.response.data
+                );
+                } else if (err.request) {
+                    console.error("No response received from server:", err.request);
+                } else {
+                    console.error("Error setting up request:", err.message);
+                }
+            }
+            return false
+        }
+    }
+
     function test() {
         const res = []
         for (let i = 0; i < 8; i++) {
@@ -85,7 +114,7 @@ export function TriviaProvider({children}: PropsWithChildren) {
     }
     return (
         <TriviaContext.Provider 
-            value={{trivia, generateGame, game, getGame, completed}}
+            value={{trivia, generateGame, game, getGame, completed, setDifference}}
         >
             {children}
         </TriviaContext.Provider>
