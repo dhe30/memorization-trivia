@@ -1,6 +1,6 @@
 import { diffArrays, diffWords } from "diff";
 import { Prompt } from "./Prompt.js";
-import { insertNumverse } from "./utilities.js";
+import { destructureAndJoin, insertNumverse, insertNumverseAndMergeDecoratorPairs, mergeDecoratorPairs } from "./utilities.js";
 export class Difference extends Prompt{
     constructor(changes = 3) {
         super()
@@ -10,22 +10,24 @@ export class Difference extends Prompt{
     diff(changedVerse) {
         const answer = []
         // changedVerse = changedVerse.split(/\s+/).map(token => {text})
-        const res = diffArrays(this.terms, changedVerse.split(/\s+/), {comparator: (a, b) => a.text === b})
+        const res = diffArrays(changedVerse.split(/\s+/), this.terms, {comparator: (a, b) => a === b.text})
         res.forEach(part => {
             if (part.added) {
-                answer.push("<strike>")
+                answer.push("<highlight>")
                 part.value.forEach(token => answer.push(token))
-                answer.push("<strike>")
+                answer.push("<highlight>")
             } else if (part.removed) {
-                answer.push("<highlight>")
+                answer.push("<strike>")
                 part.value.forEach(token => answer.push(token))
-                answer.push("<highlight>")
+                answer.push("<strike>")
             } else {
                 part.value.forEach(token => answer.push(token))
             }
         })
-        console.log(insertNumverse(answer))
-
+        console.log(answer)
+        const merged = insertNumverseAndMergeDecoratorPairs(answer, ["<strike>", "<highlight>"])
+        const stringFromMerged = destructureAndJoin(merged)
+        return stringFromMerged
     }
 
     manualChange() {

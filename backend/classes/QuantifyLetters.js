@@ -1,4 +1,5 @@
 import Quantify from "./Quantify.js";
+import { destructureAndJoin, insertNumverseAndMergeDecoratorPairs } from "./utilities.js";
 
 export default class QuantifyLetters extends Quantify {
     freq = new Map()
@@ -15,6 +16,19 @@ export default class QuantifyLetters extends Quantify {
         return 0
     }
 
+    generateAnswer(splitBy, count) {
+        let answer = []
+        for (const term of this.terms) {
+            answer.push({
+                text: term.text.replace(splitBy, "<highlight>" + splitBy + "<highlight>"),
+                numverse: term.numverse
+            })
+        }
+        answer = insertNumverseAndMergeDecoratorPairs(answer, ["<highlight>"])
+        const finalAnswer = destructureAndJoin(answer)
+        return `${count} times.\n` + finalAnswer
+    }
+
     ask() {
         // console.log(this.freq.size)
         if (this.freq.size === 0) {
@@ -25,7 +39,7 @@ export default class QuantifyLetters extends Quantify {
         if (!res) return super.ask()
         return {
             question: `How many times does "${res[0]}" appear in the bible verse?`,
-            answer: `${res[1]} times`
+            answer: this.generateAnswer(res[0], res[1])
         }
     }
 }

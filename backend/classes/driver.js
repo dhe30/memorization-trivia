@@ -11,11 +11,15 @@ import ReciteLastHalf from "./ReciteLastHalf.js";
 import 'dotenv/config';
 import { Difference } from "./Difference.js";
 import nlp from "compromise";
+import BlankSemantic from "./BlankSemantic.js";
+import BlankAlternate from "./BlankAlternate.js";
+import BlankRandom from "./BlankRandom.js";
 
 
 const verse = "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
 const changedVerse = "Nay God soo loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
 const doc = nlp(verse).terms().data();
+console.log(doc[1].terms)
 // const reciteLoader = new Loader(1, new Recite(0, 8, 100))
 // const quanitifyLoader = new Loader(1, new QuantifyWords())
 // const mother = new Questions(verse, quanitifyLoader)
@@ -23,6 +27,10 @@ const doc = nlp(verse).terms().data();
 // const factory = new QuestionFactory()
 // console.log(factory.createBasic(0, verse))
 
-const differ = new Difference()
+// const differ = new Difference()
+// differ.loadTerms(doc)
+// differ.diff(changedVerse)
+
+const differ = new BlankRandom(0.3)
 differ.loadTerms(doc)
-differ.diff(changedVerse)
+console.log(differ.ask())

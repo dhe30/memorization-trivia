@@ -77,7 +77,7 @@ export function TriviaProvider({children}: PropsWithChildren) {
 
     async function setDifference(index: number, question: string) {
         try {
-            const res = await triviaApi.post("/game/" + game + "/editdifference" + index, {question: question})
+            const res = await triviaApi.post("/game/" + game + "/editdifference/" + index, {question: question})
             setTrivia((prev) => {
                 const updated = [...prev]
                 updated[index] = res.data

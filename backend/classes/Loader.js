@@ -16,7 +16,7 @@ export class Loader {
     }
 
     ask() {
-        console.log(this.variations.entries())
+        // console.log(this.variations.entries())
         const entries = Array.from(this.variations.entries()).filter(([_, c]) => c > 0);
         const random = Math.floor(Math.random() * entries.length)
         const [variation, count] = entries[random]

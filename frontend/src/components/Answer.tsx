@@ -8,7 +8,16 @@ export default function Answer({ text }: PropsWithChildren<Text>) {
   return (
     <>
       {parts.map((part, index) =>
-        index % 2 === 1 ? <span className='highlight'>{part}</span> : <span>{part}</span>,
+        <span className={index % 2 === 1 ? "highlight" : ""}>
+          {part.split("<sup>").map((part2, index2) => {
+            if (index2 % 2 === 1) return (
+              <sup>{part2}</sup>
+            )
+            return (
+              <span>{part2}</span>
+            )
+          })}
+        </span>
       )}
     </>
   )

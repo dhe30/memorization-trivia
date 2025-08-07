@@ -60,6 +60,7 @@ app.post('/game/:id/editdifference/:index', (req, res) => {
   const bundle = data.get(id)[index]
   const origin = bundle.origin
   const answer = origin.diff(newQuestion)
+  console.log(answer)
   bundle.question = "Spot the difference:\n" + newQuestion
   bundle.answer = answer 
   bundle.warning = ""

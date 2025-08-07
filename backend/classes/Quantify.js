@@ -11,11 +11,15 @@ export default class Quantify extends Prompt{
         return this.terms.length
     }
 
+    generateAnswer() {
+        return this.terms.length + " words"
+    }
+
     ask() {
         if (this.threshold(this.count())) {
             return {
                 question: "How many words are in the bible verse?",
-                answer: this.terms.length + " words"
+                answer: this.generateAnswer()
             }
         }
     }
