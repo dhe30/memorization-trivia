@@ -29,7 +29,7 @@ function Game() {
         })}
       </div>
       <div className="sidebar self-center">
-        <TopHat></TopHat>
+        {/* <TopHat></TopHat> */}
       </div>
     </>
   )

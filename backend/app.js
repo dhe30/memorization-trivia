@@ -5,12 +5,18 @@ import 'dotenv/config';
 import QuestionFactory from "./classes/QuestionFactory.js";
 import { BibleGatewayAPI } from "./classes/BibleGatewayAPI.js";
 import { preprocessVerse } from "./classes/utilities.js";
+import { LRUCache } from "lru-cache";
+
 
 
 const PORT = process.env.PORT || 3001;
 const app = express() 
 const trivia = new QuestionFactory()
-const data = new Map()
+const data = new LRUCache({
+  max: 100,              // number of items
+  ttl: 1000 * 60 * 60 * 24 * 2, // 2 day expiration
+})
+
 // const verse = "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
 let bgw = new BibleGatewayAPI();
 

@@ -32,9 +32,8 @@ function RouteComponent() {
     trivia.completed(index)
   }
   return (
-    <div className="absolute z-10  m-0 p-0 flex-1 w-full h-full overlay bg-black/50">
-      <div className="image-box relative self-center justify-self-center m-20 flex flex-col gap-5 items-center justify-center text-soft p-10 test">
-        {/* <img height={15} width={15} className='absolute top-0 right-0 mr-5 mt-5 opacity-70' src={cross}></img> */}
+    <div className="absolute z-10 m-0 p-0 flex justify-center flex-1 w-full h-full overlay bg-black/50">
+      <div className="image-box relative self-center flex flex-col items-center justify-center text-soft px-10 pt-10 pb-5">
         {trivia.trivia[index]?.warning? <Edit id={id} index={index}></Edit> : <Display id={id} index={index}></Display>}
       </div>
     </div>

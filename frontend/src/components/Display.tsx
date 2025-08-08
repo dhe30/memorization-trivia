@@ -28,25 +28,23 @@ export default function Display({ id, index }: RouteParams) {
       }
     return (
         <>
-        <span className="callunasans-regualar text-2xl text-visible">
-            {isQuestion ? (
-                trivia.trivia[+index]?.question
-            ) : (
-                <Answer text={trivia.trivia[+index]?.answer}></Answer>
-            )}
+        <span className="callunasans-regualar md:text-2xl text-lg text-visible flex-1 flex items-center">
+                <Answer text={isQuestion? trivia.trivia[+index]?.question : trivia.trivia[+index]?.answer}></Answer>
         </span>
-        <Link className="absolute left-5 bottom-5" to="/game/$id" params={{id}}>
+        <div className='w-full h-19 relative shrink-0'>
+        <Link className="w-fit absolute bottom-0 left-0" to="/game/$id" params={{id}}>
         <Liquid>
             <img src={back} width={25} height={25}></img>
         </Liquid>
         </Link>
         {isQuestion && (
-        <button className="absolute bottom-5 p-0 m-0" onClick={handleClick}>
+        <button className="w-fit test absolute bottom-0 absolute-center" onClick={handleClick}>
             <Liquid>
             <span className="px-2">Reveal</span>
             </Liquid>
         </button>
         )}
+        </div>
     </>
     )
 }
