@@ -1,8 +1,9 @@
-import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
-import { useContext } from 'react'
+import { Link, Outlet, createFileRoute, useNavigate } from '@tanstack/react-router'
+import { useContext, useEffect } from 'react'
 import { TriviaContext } from '@/context/TriviaContext'
 import Block from '@/components/Block'
 import TopHat from '@/components/TopHat'
+import Waves from '@/components/Waves'
 // import '../styles.css'
 
 export const Route = createFileRoute('/game/$id')({
@@ -12,16 +13,24 @@ export const Route = createFileRoute('/game/$id')({
 function Game() {
     const { id } = Route.useParams()
   const trivia = useContext(TriviaContext)
+    const navigate = useNavigate()
+    useEffect(() => {
+      const isGame = async () => {
+        const res = await trivia.getGame(id)
+        if (!res) navigate({ to: '/' })
+      }
+      isGame()
+    }, [])
   return (
     <>
     <Outlet></Outlet>
-      <div className="questions self-center">
+    <Waves>
+      <div className="questions self-center z-1 relative">
         {trivia.trivia.map((elem, index) => {
           return (
             <Link
               to="/game/$id/$index"
               params={{id,index: String(index)}}
-            //   search={{type: 'question'}}
             >
               <Block index={index} warning={!!elem.warning}></Block>
             </Link>
@@ -29,8 +38,8 @@ function Game() {
         })}
       </div>
       <div className="sidebar self-center">
-        {/* <TopHat></TopHat> */}
       </div>
+    </Waves>
     </>
   )
 }

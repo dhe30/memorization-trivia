@@ -37,7 +37,7 @@ code {
   /* height: 100%; */
   display: flex;
   flex-wrap: wrap;
-  background-color: black;
+  /* background-color: black; */
   flex: 1;
 }
 
