@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
   res.send('Hello world');
 });
 
-app.get('/basic/:otis?', async (req, res) => {
+app.get('/basic/:otis', async (req, res) => {
     console.log("idheudueu")
     const otis = req.params.otis || "John 3:16-17"
     const id = randomUUID();
