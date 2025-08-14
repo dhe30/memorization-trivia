@@ -7,6 +7,7 @@ export default class ReciteLastHalf extends Recite {
         return joinInsert(this.terms, [[start, start + length]], {text: "<highlight>"}, " ")
     }
     ask() {
+        this.maxLength = this.terms.length / 2
         const res = super.ask()
         return {...res, question: `Recite the last ${this.length} words of the bible verse.`}
     }
