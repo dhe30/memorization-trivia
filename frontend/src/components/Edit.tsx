@@ -1,10 +1,10 @@
 import {  useContext } from "react";
-import { Textarea } from "./ui/textarea";
+import { Link } from "@tanstack/react-router";
 import back from '../assets/back-svgrepo-com (1).svg'
+import { Textarea } from "./ui/textarea";
 import Liquid from "./Liquid";
 import type {FormEvent} from "react";
 import { TriviaContext } from "@/context/TriviaContext";
-import { Link } from "@tanstack/react-router";
 
 interface RouteParams {
     id: string, 
@@ -22,16 +22,19 @@ export default function Edit({ id, index }: RouteParams) {
     }
     return (
         <>
-        <form onSubmit={handleSubmit} className="test">
-            <span className="callunasans-regualar md:text-2xl text-lg text-visible">{trivia.trivia[index]?.warning}</span>
-            <Textarea name="text" className="mb-5 md:text-2xl text-lg callunasans-regualar text-visible h-50 bg-white bg-opacity-90 text-black" defaultValue={trivia.trivia[index]?.question}>
+        <form onSubmit={handleSubmit} className="test h-full flex flex-col">
+            <div className="mt-auto mb-auto test h-fit">
+            <span className="callunasans-regualar md:text-2xl text-lg text-visible mb-5 inline-block">{trivia.trivia[index]?.warning}</span>
+            <Textarea name="text" className="text-lg callunasans-regualar text-visible h-50 bg-white bg-opacity-90 text-black" defaultValue={trivia.trivia[index]?.question}>
             </Textarea>
+            </div>
             <div className="relative w-full h-19 test">
                 <Link className="w-fit absolute bottom-0 left-0" to="/game/$id" params={{id}}>
                 <Liquid>
                     <img src={back} width={25} height={25}></img>
                 </Liquid>
-                </Link>            <button type="submit" className="absolute bottom-0 absolute-center">
+                </Link>            
+            <button type="submit" className="absolute bottom-0 absolute-center">
                 <Liquid>
                 <span className="px-5">Save</span>
                 </Liquid>

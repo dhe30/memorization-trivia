@@ -31,14 +31,15 @@ function Game() {
             <Link
               to="/game/$id/$index"
               params={{id,index: String(index)}}
+              key={elem.question}
             >
-              <Block index={index} warning={!!elem.warning}></Block>
+              <Block index={index} warning={!!elem.warning} completed={elem.completed}></Block>
             </Link>
           )
         })}
       </div>
-      <div className="sidebar self-center">
-      </div>
+      {/* <div className="sidebar self-center">
+      </div> */}
     </Waves>
     </>
   )

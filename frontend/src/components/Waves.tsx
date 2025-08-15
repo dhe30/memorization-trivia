@@ -71,7 +71,6 @@ function Wave() {
             position={[0, -3, 0]}
             rotation={[-Math.PI/1.5, 0, 0]}
         >
-                            <axesHelper></axesHelper>
 
             <pointsMaterial size={0.02} color="white"></pointsMaterial>
                 <group ref={ref} position={[2, 2, 0]}  rotation={[Math.PI / 1.5, (Math.PI / 180) * 10, 0]} >
@@ -117,7 +116,7 @@ function RidingCube({scale = 2 }) {
 export default function Waves({children} : PropsWithChildren) {
   return (
     <>
-    <Canvas camera={{ position: [0, 2, 5], fov: 50 }} style={{position: "absolute", zIndex: "-1"}}>
+    <Canvas camera={{ position: [0, 2, 5], fov: 50 }} style={{position: "absolute", zIndex: "0"}}>
       <color attach="background" args={["black"]} />
       <ambientLight />
       <Wave />

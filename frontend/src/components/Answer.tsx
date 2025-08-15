@@ -16,20 +16,24 @@ export default function Answer({ text }: PropsWithChildren<Text>) {
         return part.split(/<underline>/).map((und, k) => {
           const isUnderline = k % 2 === 1;
 
-          return und.split(/<sup>/).map((sub, j) => {
-          const isSup = j % 2 === 1;
+          return und.split(/<strike>/).map((strk, l) => {
+              const isStrike = l % 2 === 1;
 
-          const content = isSup ? <sup>{sub}</sup> : <>{sub}</>;
+            return strk.split(/<sup>/).map((sub, j) => {
+            const isSup = j % 2 === 1;
 
-          return (
-            <span
-              key={`${i}-${j}`}
-              className={(isHighlight ? "highlight" : "") + (isUnderline? "underline" : "")}
-            >
-              {content}
-            </span>
-          );
-        });
+            const content = isSup ? <sup>{sub}</sup> : <>{sub}</>;
+
+            return (
+              <span
+                key={`${i}-${j}`}
+                className={(isHighlight ? "highlight" : "") + (isUnderline? "underline" : "") + (isStrike? "striker" : "")}
+              >
+                {content}
+              </span>
+            );
+          });
+        })
         })
       })}
     </p>

@@ -1,5 +1,9 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useContext } from 'react'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { VerseForm } from "../components/VerseForm.tsx"
 import { TriviaContext } from '@/context/TriviaContext'
 
 export const Route = createFileRoute('/')({
@@ -9,21 +13,40 @@ export const Route = createFileRoute('/')({
 function App() {
   const navigate = useNavigate()
   const trivia = useContext(TriviaContext)
-  async function handleClick() {
-    const res = await trivia.generateGame()
+  const formSchema = z.object({
+    verse: z.string().min(2, {
+      message: "verse must be at least 2 characters.",
+    }),
+  })
+
+  const form = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        verse: "John 3:16",
+      },
+  })
+
+  async function handleClick(data : z.infer<typeof formSchema>) {
+    const res = await trivia.generateGame(data.verse)
     if (res) {
-      console.log('siejdheh')
-      console.log()
+      // console.log('siejdheh')
+      // console.log()
       navigate({
         to: "/game/$id", 
         params: {id: res}
       })
+    } else {
+      form.setError(
+        "verse",
+        {type: "server", message: "Invalid, please try again."}
+      )
     }
   }
   return (
-    <button type='button' onClick={handleClick} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
->
-      Hello!
-    </button>
+    <div className='self-center h-full content-center'>
+      <div>
+      <VerseForm form={form} onSubmit={handleClick}></VerseForm>
+      </div>
+   </div>
   )
 }

@@ -6,7 +6,7 @@ import { triviaApi } from "@/api/triviaApi";
 
 interface TriviaContextType {
     trivia: Array<Question>,
-    generateGame: () => Promise<string>,
+    generateGame: (a: string) => Promise<string>,
     getGame: (a: string) => Promise<string | undefined>,
     game: string,
     completed: (a: number) => void
@@ -51,10 +51,10 @@ export function TriviaProvider({children}: PropsWithChildren) {
         }
     }
 
-    async function generateGame() {
+    async function generateGame(verse = "") {
         console.log("uedubeub")
         // creates game and sets game along with trivia 
-        const res = await getTrivia("basic")
+        const res = await getTrivia("basic/" + verse)
         return res
     }
 
