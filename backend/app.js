@@ -40,7 +40,7 @@ app.get('/basic/:otis', async (req, res) => {
 });
 
 app.get('/game/:id', (req, res) => {
-  console.log("get game!")
+  // console.log("get game!")
     const { id } = req.params;
     const result = data.get(id)
     if (result) {
@@ -51,7 +51,7 @@ app.get('/game/:id', (req, res) => {
 });
 
 app.use('/game/:id', (req, res, next) => {
-  console.log("use game!")
+  // console.log("use game!")
     const { id } = req.params;
     const result = data.has(id)
     if (result) {
@@ -67,7 +67,7 @@ app.post('/game/:id/editdifference/:index', (req, res) => {
   const bundle = data.get(id)[index]
   const origin = bundle.origin
   const answer = origin.diff(newQuestion)
-  console.log(answer)
+  // console.log(answer)
   bundle.question = "Spot the difference:\n" + newQuestion
   bundle.answer = answer 
   bundle.warning = ""

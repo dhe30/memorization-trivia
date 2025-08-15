@@ -1,5 +1,5 @@
 import nlp from "compromise";
-import { shuffleArray } from "./utilities";
+import { shuffleArray } from "./utilities.js";
 export class Questions {
     amount = 0
     questions = []
