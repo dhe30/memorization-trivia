@@ -15,11 +15,11 @@ interface TriviaContextType {
 
 const defaultTrivia: TriviaContextType = {
     trivia: [],
-    generateGame: () => new Promise((resolve, reject) => resolve("")),
-    getGame: () => new Promise((resolve, reject) => resolve("")),
+    generateGame: () => new Promise((resolve) => resolve("")),
+    getGame: () => new Promise((resolve) => resolve("")),
     game: "",
     completed: () => {},
-    setDifference: () => new Promise((resolve, reject) => resolve(false)),
+    setDifference: () => new Promise((resolve) => resolve(false)),
 
 }
 export const TriviaContext = createContext<TriviaContextType>(defaultTrivia)
@@ -101,17 +101,6 @@ export function TriviaProvider({children}: PropsWithChildren) {
         }
     }
 
-    function test() {
-        const res = []
-        for (let i = 0; i < 8; i++) {
-            res.push({
-                question: "question",
-                answer: "answer",
-                completed: false
-            })
-        }
-        return res
-    }
     return (
         <TriviaContext.Provider 
             value={{trivia, generateGame, game, getGame, completed, setDifference}}

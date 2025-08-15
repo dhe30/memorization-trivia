@@ -41,10 +41,6 @@ function Wave() {
         return new THREE.PlaneGeometry(8, 4, 150, 150)
     }, [camera, size]);
 
-      const boxgeometry = useMemo(() => {
-            return new THREE.BoxGeometry(0.2, 0.2, 0.2)
-        }, [])
-
     const pos = geometry.attributes.position as THREE.BufferAttribute;
 
     // eslint-disable-next-line no-shadow
@@ -88,29 +84,6 @@ function Wave() {
     </group>
         </points>
     )
-}
-
-function RidingCube({scale = 2 }) {
-  const ref = useRef<THREE.Mesh>(null)
-
-  const boxgeometry = useMemo(() => {
-    return new THREE.BoxGeometry(0.2, 0.2, 0.2)
-  }, [])
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime()
-    const x = 0
-    const y = -3
-    const z = fbmNoise(simplex, x / 2, y / 2, t / 10)
-    if (ref.current) {
-      ref.current.position.setY(z) // Note: Y/Z swap if plane is rotated
-    }
-  })
-
-  return (
-    <mesh ref={ref} position={[0, -3, 0]} geometry={boxgeometry} rotation={[-Math.PI/1.5, 0, 0]}>
-      <meshStandardMaterial color="red" />
-    </mesh>
-  )
 }
 
 export default function Waves({children} : PropsWithChildren) {

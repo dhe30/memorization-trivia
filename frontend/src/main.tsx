@@ -7,7 +7,7 @@ import { routeTree } from './routeTree.gen'
 
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
-import { TriviaContext, TriviaProvider } from './context/TriviaContext.tsx'
+import { TriviaProvider } from './context/TriviaContext.tsx'
 
 // Create a new router instance
 const router = createRouter({

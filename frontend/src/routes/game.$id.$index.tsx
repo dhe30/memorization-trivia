@@ -1,9 +1,6 @@
-import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useContext, useEffect, useState } from 'react'
-import back from '../assets/back-svgrepo-com (1).svg'
+import { createFileRoute } from '@tanstack/react-router'
+import { useContext } from 'react'
 import { TriviaContext } from '@/context/TriviaContext'
-import Liquid from '@/components/Liquid'
-import Answer from '@/components/Answer'
 import Display from '@/components/Display'
 import Edit from '@/components/Edit'
 
@@ -13,28 +10,12 @@ export const Route = createFileRoute('/game/$id/$index')({
 
 function RouteComponent() {
   const trivia = useContext(TriviaContext)
-  const navigate = useNavigate()
-  useEffect(() => {
-    const isGame = async () => {
-      const res = await trivia.getGame(id)
-      if (!res) navigate({ to: '/' })
-    }
-    isGame()
-  }, [])
   const { id, index } = Route.useParams()
-  const [completed, setCompleted] = useState<boolean>(
-    trivia.trivia[index]?.completed,
-  )
-  const [isQuestion, setIsQuestion] = useState<boolean>(true)
 
-  function handleClick() {
-    setIsQuestion(false)
-    trivia.completed(index)
-  }
   return (
     <div className="absolute z-10 m-0 p-0 flex justify-center flex-1 w-full h-full overlay bg-black/50">
       <div className="image-box relative self-center flex flex-col items-center justify-center text-soft px-10 pt-10 pb-5">
-        {trivia.trivia[index]?.warning? <Edit id={id} index={index}></Edit> : <Display id={id} index={index}></Display>}
+        {trivia.trivia[+index]?.warning? <Edit id={id} index={+index}></Edit> : <Display id={id} index={+index}></Display>}
       </div>
     </div>
   )

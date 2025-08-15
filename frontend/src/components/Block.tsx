@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import Warning from "../assets/warning-svgrepo-com.svg"
 // import type Question from "@/context/TriviaType";
 

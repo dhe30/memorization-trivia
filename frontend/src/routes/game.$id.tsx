@@ -2,7 +2,6 @@ import { Link, Outlet, createFileRoute, useNavigate } from '@tanstack/react-rout
 import { useContext, useEffect } from 'react'
 import { TriviaContext } from '@/context/TriviaContext'
 import Block from '@/components/Block'
-import TopHat from '@/components/TopHat'
 import Waves from '@/components/Waves'
 // import '../styles.css'
 
