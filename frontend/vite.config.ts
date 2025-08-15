@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { defineConfig } from 'vitest/config'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
@@ -18,6 +18,9 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+  },
+  build: {
+    outDir: 'dist',
   },
   resolve: {
     alias: {
