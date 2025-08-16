@@ -4,9 +4,14 @@ import type {PropsWithChildren} from "react";
 import type Question from "./TriviaType";
 import { triviaApi } from "@/api/triviaApi";
 
+interface TriviaResponse {
+    game: string,
+    questions: Array<Question>
+}
+
 interface TriviaContextType {
     trivia: Array<Question>,
-    generateGame: (a: string) => Promise<string>,
+    generateGame: (a: string, b:string) => Promise<string>,
     getGame: (a: string) => Promise<string | undefined>,
     game: string,
     completed: (a: number) => void
@@ -27,13 +32,22 @@ export function TriviaProvider({children}: PropsWithChildren) {
     const [game, setGame] = useState<string>("")
     const [trivia, setTrivia] = useState<Array<Question>>([])
 
-    async function getTrivia(url: string) {
+    function setAll(data : TriviaResponse) {
+        setGame(data.game)
+        setTrivia(data.questions)
+        return data.game
+    }
+
+    async function getTrivia(url: string, method = "get", callback = setAll) {
         console.log("uedubeub")
         try {
-            const res = await triviaApi.get(url)
-            setGame(res.data.game)
-            setTrivia(res.data.questions)
-            return res.data.game
+            if (method === "post") {
+                const res = await triviaApi.post(url)
+                return callback(res.data)
+            } else {
+                const res = await triviaApi.get(url)
+                return callback(res.data)
+            }
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 if (err.response) {
@@ -51,10 +65,10 @@ export function TriviaProvider({children}: PropsWithChildren) {
         }
     }
 
-    async function generateGame(verse = "") {
+    async function generateGame(verse = "", version = "NIV") {
         console.log("uedubeub")
         // creates game and sets game along with trivia 
-        const res = await getTrivia("basic/" + verse)
+        const res = await getTrivia(`basic/${verse}/${version}`, "post")
         return res
     }
 

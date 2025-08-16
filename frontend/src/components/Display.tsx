@@ -29,7 +29,7 @@ export default function Display({ id, index }: RouteParams) {
   }
   return (
     <>
-      <span className="callunasans-regualar md:text-2xl text-lg text-visible flex-1 flex items-center">
+      <span className="callunasans-regualar lg:text-2xl md:text-2xl lg:leading-10 text-xl text-visible flex-1 flex items-center">
         <Answer
           text={
             isQuestion

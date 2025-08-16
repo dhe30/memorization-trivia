@@ -306,7 +306,7 @@ Note: backdrop-filter has minimal browser support */
   position: relative;
   aspect-ratio: 450 / 340;
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
 
   max-height: calc(100% - 160px);
   height: auto;
@@ -336,7 +336,7 @@ Note: backdrop-filter has minimal browser support */
 }
 
 .text-soft {
-  color: rgb(213, 213, 213);
+  color: rgb(228, 228, 228);
 }
 
 .glassBtn {

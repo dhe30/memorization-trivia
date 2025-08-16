@@ -27,11 +27,11 @@ app.get('/', (req, res) => {
   res.send('Hello world');
 });
 
-app.get('/basic/:otis', async (req, res) => {
+app.post('/basic/:otis/:version', async (req, res) => {
     console.log("idheudueu")
     const otis = req.params.otis || "John 3:16-17"
     const id = randomUUID();
-    let { verse, content } = await bgw.search(otis);
+    let { verse, content } = await bgw.search(otis, req.params.version || "NIV");
     const verseBundle = preprocessVerse({ verse, content })
     console.log(verseBundle)
     const questions = trivia.createBasic(0, verseBundle)

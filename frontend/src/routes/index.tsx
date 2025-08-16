@@ -17,17 +17,19 @@ function App() {
     verse: z.string().min(2, {
       message: "verse must be at least 2 characters.",
     }),
+    version: z.string().min(2)
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
         verse: "John 3:16",
+        version: "NIV"
       },
   })
 
   async function handleClick(data : z.infer<typeof formSchema>) {
-    const res = await trivia.generateGame(data.verse)
+    const res = await trivia.generateGame(data.verse, data.version)
     if (res) {
       // console.log('siejdheh')
       // console.log()

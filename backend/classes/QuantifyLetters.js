@@ -20,7 +20,7 @@ export default class QuantifyLetters extends Quantify {
         let answer = []
         for (const term of this.terms) {
             answer.push({
-                text: term.text.replace(splitBy, "<highlight>" + splitBy + "<highlight>"),
+                text: term.text.replaceAll(splitBy, "<highlight>" + splitBy + "<highlight>"),
                 numverse: term.numverse
             })
         }
