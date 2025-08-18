@@ -130,7 +130,7 @@ export function preprocessVerse({verse, content}) {
             const newText = text.replace(match[0], "")
             res.push({numverse, content: newText})
         } else {
-            res[res.length - 1].content += text
+            res[res.length - 1].content += (" " + text)
         }
         
     }
