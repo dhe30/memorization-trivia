@@ -47,6 +47,7 @@ class BibleGatewayAPI {
     }
 
     if (content.length === 0) throw new Error("Could not find verse");
+    // console.log("here", verse, content)
 
     return Promise.resolve({ verse, content });
   }

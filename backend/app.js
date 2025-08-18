@@ -28,12 +28,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/basic/:otis/:version', async (req, res) => {
-    console.log("idheudueu")
     const otis = req.params.otis || "John 3:16-17"
     const id = randomUUID();
+    // console.log(otis, req.params.version)
+    console.log("basic", otis)
     let { verse, content } = await bgw.search(otis, req.params.version || "NIV");
     const verseBundle = preprocessVerse({ verse, content })
-    console.log(verseBundle)
+    // console.log(verseBundle)
     const questions = trivia.createBasic(0, verseBundle)
     data.set(id, questions)
     res.status(201).send({game: id, questions: questions.map((question) => {return {question: question.question, answer: question.answer, warning: question.warning}})});

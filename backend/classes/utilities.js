@@ -125,9 +125,14 @@ export function preprocessVerse({verse, content}) {
     const res = []
     for (const text of content) {
         const match = text.match(/^[0-9]+\s/)
-        const numverse = match[0].trim()
-        const newText = text.replace(match[0], "")
-        res.push({numverse, content: newText})
+        if (match) {
+            const numverse = match[0].trim()
+            const newText = text.replace(match[0], "")
+            res.push({numverse, content: newText})
+        } else {
+            res[res.length - 1].content += text
+        }
+        
     }
     return {verse, content: res}
 }
