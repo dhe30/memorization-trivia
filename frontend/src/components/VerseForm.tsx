@@ -42,7 +42,7 @@ export function VerseForm<T extends FieldValues>({ form, onSubmit }:FormViewProp
               {/* <FormDescription>
                 This is your public display name.
               </FormDescription> */}
-              <FormMessage />
+              <FormMessage/>
             </FormItem>
           )}
         />
